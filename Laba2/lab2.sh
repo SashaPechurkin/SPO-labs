@@ -41,7 +41,7 @@ fi
 echo "RUN cjdns"
 sudo ./cjdroute < cjdroute.conf
 
-#wait 20 seconds
+#Ждем 20 секунд
 sleep 20
 
 #Остановка cjdns
