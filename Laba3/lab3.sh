@@ -1,31 +1,30 @@
 #!/bin/bash
-#Размеры поля 12 х 12. В соответствии с этими значениями было принято решение сделать пробелы между цифрами и ширину самих цифр в  6 единиц. 
 
-rotate90(){ # функция для поворота черепашки на месте на 90 градусов по часовой стрелке
+rotate90(){ #поворот черепашки на месте на 90 градусов по часовой стрелке
 		rostopic pub -1 /turtle1/cmd_vel geometry_msgs/Twist -- '[0.0, 0.0, 0.0]' '[0.0, 0.0,-1.564]'
 }
 
-crotate90(){ # функция для поворота черепашки на месте на 90 градусов против часовой стрелки
+crotate90(){ #поворот черепашки на месте на 90 градусов против часовой стрелки
 		rostopic pub -1 /turtle1/cmd_vel geometry_msgs/Twist -- '[0.0, 0.0, 0.0]' '[0.0, 0.0,1.564]'
 }
 
-move(){ # функция для перемещения вперед на заданное количество шагов
+move(){ #перемещение вперед на заданное количество шагов
 	rostopic pub -1 /turtle1/cmd_vel geometry_msgs/Twist -- [$1', 0.0, 0.0]' '[0.0, 0.0,0.0]'
 }
 
-penoff(){
+penoff(){ #убрать ручку
 	rosservice call /turtle1/set_pen  0 0 0 5 on
 }
 
-penon(){
+penon(){ #опустить ручку
 	rosservice call /turtle1/set_pen  255 177 10 5 off
 }
 
-teleport(){
+teleport(){ #перемещение черепашки в указанные координаты
 	rosservice call /turtle1/teleport_absolute $1 $2 0.0
 }
 
-teleportpen(){ # функция, чтобы переместить черепашку в указанные координаты, не оставляя след
+teleportpen(){ #перемещение черепашки в указанные координаты, не оставляя след
 	rosservice call /turtle1/set_pen  0 0 0 5 on
 	rosservice call /turtle1/teleport_absolute $1 $2 0.0
 	rosservice call /turtle1/set_pen  255 177 10 5 off
@@ -102,6 +101,7 @@ three
 teleportpen 10 5
 }
 
+#наконец, можно нарисовать номер
 rosservice call /clear
 tabnum
 
